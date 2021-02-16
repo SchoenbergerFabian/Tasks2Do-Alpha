@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">Tasks2Do</string>
+
+    <!--menu_tasks-->
+    <string name="save">Save</string>
+
+    <!--contextmenu_task-->
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="details">Details</string>
+
+    <string name="format_date">dd.MM.yyyy</string>
+    <string name="format_time">HH:mm</string>
+
 </resources>
