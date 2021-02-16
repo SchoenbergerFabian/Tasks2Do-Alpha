@@ -1,14 +1,20 @@
 <resources>
     <string name="app_name">Tasks2Do</string>
 
-    <!--menu_tasks-->
+    <!--words-->
     <string name="save">Save</string>
-
-    <!--contextmenu_task-->
     <string name="edit">Edit</string>
     <string name="delete">Delete</string>
     <string name="details">Details</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="create">Create</string>
+    <string name="cancel">Cancel</string>
 
+    <!--phrases-->
+    <string name="newtask">Create Task:</string>
+
+    <!--formats-->
     <string name="format_date">dd.MM.yyyy</string>
     <string name="format_time">HH:mm</string>
 

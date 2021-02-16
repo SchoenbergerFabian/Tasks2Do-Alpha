@@ -18,19 +18,11 @@ class Task {
     var title = ""
     var description = ""
     var dueDate : LocalDate = LocalDate.now()
-    var dueTime : LocalTime? = null
+    var dueTime : LocalTime = LocalTime.now()
 
     fun getDueString(datePattern: String, timePattern: String) : String{
-        return when(dueTime){
-            null -> {
-                val datetimeFormat = DateTimeFormatter.ofPattern("$datePattern")
-                datetimeFormat.format(dueDate)
-            }
-            else -> {
-                val datetimeFormat = DateTimeFormatter.ofPattern("$datePattern $timePattern")
-                datetimeFormat.format(dueDate.atTime(dueTime))
-            }
-        }
+        val datetimeFormat = DateTimeFormatter.ofPattern("$datePattern $timePattern")
+        return datetimeFormat.format(dueDate.atTime(dueTime))
     }
 
 }

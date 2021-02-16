@@ -22,8 +22,11 @@ class Fragment_Tasks : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
         recyclerview_tasks.adapter = Adapter_Tasks(requireActivity(),MainActivity.tasks)
+
+        button_create.setOnClickListener {
+            Dialog_NewTask(requireActivity()).show()
+        }
     }
 
     override fun onContextItemSelected(item: MenuItem): Boolean {
