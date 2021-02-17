@@ -1,6 +1,7 @@
 package com.infendro.tasks2do
 
-import com.infendro.tasks2do.layout.Task
+import java.util.*
+import kotlin.collections.ArrayList
 
 class Tasks {
 
@@ -19,8 +20,13 @@ class Tasks {
         return tasks[index]
     }
 
+    fun getTasks() : List<Task>{
+        return tasks
+    }
+
     fun addTask(task: Task){
         tasks.add(task)
+        //tasks.sort()
     }
 
     fun removeTask(task: Task){

@@ -10,6 +10,10 @@ import kotlinx.android.synthetic.main.fragment_tasks.*
 
 class Fragment_Tasks : Fragment() {
 
+    companion object{
+        lateinit var adapter_tasks : Adapter_Tasks
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -22,7 +26,9 @@ class Fragment_Tasks : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        recyclerview_tasks.adapter = Adapter_Tasks(requireActivity(),MainActivity.tasks)
+        adapter_tasks = Adapter_Tasks(requireActivity())
+        adapter_tasks.addTasks(MainActivity.tasks.getTasks())
+        recyclerview_tasks.adapter = adapter_tasks
 
         button_create.setOnClickListener {
             Dialog_NewTask(requireActivity()).show()

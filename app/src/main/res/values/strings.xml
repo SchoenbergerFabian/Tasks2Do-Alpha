@@ -13,6 +13,7 @@
 
     <!--phrases-->
     <string name="newtask">Create Task:</string>
+    <string name="invalidinput">Invalid Input!</string>
 
     <!--formats-->
     <string name="format_date">dd.MM.yyyy</string>

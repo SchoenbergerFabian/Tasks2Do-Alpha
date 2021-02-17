@@ -2,25 +2,48 @@ package com.infendro.tasks2do.layout.fragments.Fragment_Tasks
 
 import android.app.Activity
 import android.view.*
-import android.widget.ArrayAdapter
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.SortedList
+import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.infendro.tasks2do.R
 import com.infendro.tasks2do.Tasks
-import com.infendro.tasks2do.layout.Task
-import kotlinx.android.synthetic.main.view_task.view.*
+import com.infendro.tasks2do.Task
 
-class Adapter_Tasks(private val activity: Activity,private val tasks : Tasks) : RecyclerView.Adapter<Adapter_Tasks.ViewHolder>() {
+class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapter_Tasks.ViewHolder>() {
 
-    class ViewHolder(val activity: Activity, view: View) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
+    private val sortedTasks : SortedList<Task>
 
-        val textview_title: TextView
-        val textview_due: TextView
+    init{
+        sortedTasks = SortedList(Task::class.java, object : SortedListAdapterCallback<Task>(this) {
+            override fun areItemsTheSame(task1: Task, task2: Task): Boolean {
+                return task1==task2
+            }
+
+            override fun compare(task1: Task, task2: Task): Int {
+                return task1.compareTo(task2)
+            }
+
+            override fun areContentsTheSame(task1: Task, task2: Task): Boolean {
+                return task1.compareTo(task2)==0
+            }
+        })
+    }
+
+    fun addTask(task: Task){
+        sortedTasks.add(task)
+    }
+
+    fun addTasks(tasks: List<Task>){
+        sortedTasks.addAll(tasks)
+    }
+
+    class ViewHolder(private val activity: Activity, view: View) : RecyclerView.ViewHolder(view), View.OnCreateContextMenuListener {
+
+        private val textview_title: TextView = view.findViewById(R.id.textview_title)
+        private val textview_due: TextView = view.findViewById(R.id.textview_due)
 
         init {
-            textview_title = view.findViewById(R.id.textview_title)
-            textview_due = view.findViewById(R.id.textview_due)
             view.setOnCreateContextMenuListener(this)
             // Define click listener for the ViewHolder's View.
         }
@@ -49,10 +72,10 @@ class Adapter_Tasks(private val activity: Activity,private val tasks : Tasks) : 
 
         // Get element from your dataset at this position and replace the
         // contents of the view with that element
-        viewHolder.bind(tasks.getTask(position))
+        viewHolder.bind(sortedTasks[position])
     }
 
     // Return the size of your dataset (invoked by the layout manager)
-    override fun getItemCount() = tasks.size()
+    override fun getItemCount() = sortedTasks.size()
 
 }
