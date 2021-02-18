@@ -2,9 +2,9 @@ package com.infendro.tasks2do.layout.fragments.Fragment_Tasks
 
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.infendro.tasks2do.R
+import com.infendro.tasks2do.Storage.Storage
 import com.infendro.tasks2do.layout.MainActivity
 import kotlinx.android.synthetic.main.fragment_tasks.*
 
@@ -22,6 +22,7 @@ class Fragment_Tasks : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        setHasOptionsMenu(true)
         return inflater.inflate(R.layout.fragment_tasks, container, false)
     }
 
@@ -35,22 +36,18 @@ class Fragment_Tasks : Fragment() {
         }
     }
 
-    override fun onContextItemSelected(item: MenuItem): Boolean {
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_tasks,menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
-            R.id.menuitem_edit -> {
-                Toast.makeText(requireActivity(),"EDIT",Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.menuitem_delete -> {
-                Toast.makeText(requireActivity(),"DELETE",Toast.LENGTH_SHORT).show()
-                true
-            }
-            R.id.menuitem_details -> {
-                Toast.makeText(requireActivity(),"DETAILS",Toast.LENGTH_SHORT).show()
-                true
+            R.id.menuitem_save -> {
+                Storage.save(MainActivity.tasks)
             }
         }
-        return super.onContextItemSelected(item)
+        return super.onOptionsItemSelected(item)
     }
 
 }

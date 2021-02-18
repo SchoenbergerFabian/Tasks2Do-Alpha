@@ -5,7 +5,15 @@ import kotlin.collections.ArrayList
 
 class Tasks {
 
-    private val tasks = ArrayList<Task>()
+    private var tasks : ArrayList<Task>
+
+    constructor(){
+        this.tasks = ArrayList()
+    }
+
+    constructor(tasks: ArrayList<Task>){
+        this.tasks = tasks
+    }
 
     fun size() : Int {
         return tasks.size

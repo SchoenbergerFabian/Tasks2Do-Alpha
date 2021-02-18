@@ -10,9 +10,14 @@
     <string name="description">Description</string>
     <string name="create">Create</string>
     <string name="cancel">Cancel</string>
+    <string name="removed">Removed</string>
+    <string name="close">Close</string>
 
     <!--phrases-->
     <string name="newtask">Create Task:</string>
+    <string name="edittask">Edit Task:</string>
+    <string name="taskdetails">Details:</string>
+    <string name="taskdescription">Description:</string>
     <string name="invalidinput">Invalid Input!</string>
 
     <!--formats-->

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.SortedListAdapterCallback
 import com.infendro.tasks2do.R
 import com.infendro.tasks2do.Tasks
 import com.infendro.tasks2do.Task
+import com.infendro.tasks2do.layout.MainActivity
 
 class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapter_Tasks.ViewHolder>() {
 
@@ -34,6 +35,10 @@ class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapt
         sortedTasks.add(task)
     }
 
+    fun removeTask(task: Task){
+        sortedTasks.remove(task)
+    }
+
     fun addTasks(tasks: List<Task>){
         sortedTasks.addAll(tasks)
     }
@@ -43,18 +48,35 @@ class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapt
         private val textview_title: TextView = view.findViewById(R.id.textview_title)
         private val textview_due: TextView = view.findViewById(R.id.textview_due)
 
+        private lateinit var task: Task
+
         init {
             view.setOnCreateContextMenuListener(this)
             // Define click listener for the ViewHolder's View.
         }
 
         fun bind(task : Task){
+            this.task=task
             textview_title.text = task.title
             textview_due.text = task.getDueString(activity.getString(R.string.format_date),activity.getString(R.string.format_time))
         }
 
         override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
             activity.menuInflater.inflate(R.menu.contextmenu_task, menu)
+            menu.findItem(R.id.menuitem_edit).setOnMenuItemClickListener {
+                Dialog_EditTask(activity,task).show()
+                true
+            }
+            menu.findItem(R.id.menuitem_delete).setOnMenuItemClickListener {
+                MainActivity.tasks.removeTask(task)
+                Fragment_Tasks.adapter_tasks.removeTask(task)
+                MainActivity.toast(activity.getString(R.string.removed))
+                true
+            }
+            menu.findItem(R.id.menuitem_details).setOnMenuItemClickListener {
+                Dialog_TaskDetails(activity, task).show()
+                true
+            }
         }
     }
 
@@ -77,5 +99,9 @@ class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapt
 
     // Return the size of your dataset (invoked by the layout manager)
     override fun getItemCount() = sortedTasks.size()
+
+    fun getItem(position: Int) : Task {
+        return sortedTasks[position]
+    }
 
 }
