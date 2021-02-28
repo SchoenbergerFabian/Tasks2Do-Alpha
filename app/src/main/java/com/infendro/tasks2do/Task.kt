@@ -25,6 +25,19 @@ class Task : Comparable<Task> {
         return datetimeFormat.format(dueDate.atTime(dueTime))
     }
 
+    fun isOver() : Boolean {
+        val now_date = LocalDate.now()
+        if(dueDate.isBefore(now_date)){
+            return true
+        }else if(dueDate.isEqual(now_date)){
+            val now_time = LocalTime.now()
+            if(dueTime.isBefore(now_time)){
+                return true
+            }
+        }
+        return false
+    }
+
     override fun compareTo(other: Task): Int {
         val compareDueDate = dueDate.compareTo(other.dueDate)
         if(compareDueDate==0){

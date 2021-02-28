@@ -59,6 +59,9 @@ class Adapter_Tasks(private val activity: Activity) : RecyclerView.Adapter<Adapt
             this.task=task
             textview_title.text = task.title
             textview_due.text = task.getDueString(activity.getString(R.string.format_date),activity.getString(R.string.format_time))
+            if(task.isOver()){
+                textview_due.setTextColor(activity.getColor(R.color.late))
+            }
         }
 
         override fun onCreateContextMenu(menu: ContextMenu, v: View, menuInfo: ContextMenu.ContextMenuInfo?) {
